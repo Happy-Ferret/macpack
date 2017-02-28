@@ -114,7 +114,7 @@ func defaultConfig() Config {
 func (c Config) check() error {
 	validName := regexp.MustCompile(`^([A-Za-z0-9_]|[\-])+$`)
 	validUTI := regexp.MustCompile(`^([A-Za-z0-9]|[\-]|[\.])+$`)
-	validMinVersion := regexp.MustCompile(`^[0-9]+[\.][0-9]+$`)
+	validMinVersion := regexp.MustCompile(`^[0-9]+([\.][0-9]+){1,2}$`)
 
 	if !validName.MatchString(c.Name) {
 		return fmt.Errorf("name from config must contain alphanumeric characters, '_' or '-' : %v", c.Name)
@@ -125,11 +125,11 @@ func (c Config) check() error {
 	}
 
 	if !validMinVersion.MatchString(c.Version) {
-		return fmt.Errorf("version from config must follow the pattern x.x where x is a non negative number: %v", c.Version)
+		return fmt.Errorf("version from config must follow the pattern x.x or x.x.x where x is a non negative number: %v", c.Version)
 	}
 
 	if !validMinVersion.MatchString(c.DeploymentTarget) {
-		return fmt.Errorf("deployment-target from config must follow the pattern x.x where x is a non negative number: %v", c.DeploymentTarget)
+		return fmt.Errorf("deployment-target from config must follow the pattern x.x or x.x.x where x is a non negative number: %v", c.DeploymentTarget)
 	}
 
 	macOSDeploymentTarget := strings.Split(c.DeploymentTarget, ".")
