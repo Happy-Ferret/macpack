@@ -75,6 +75,20 @@ const plistTmpl = `
 			</array>
 		</dict>
 	</array>
+
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>{{.ID}}</string>
+			<key>CFBundleTypeRole</key>
+			<string>{{.Role}}</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>{{.URLScheme}}</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
     `

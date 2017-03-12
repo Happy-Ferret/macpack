@@ -17,6 +17,7 @@ import (
 type Config struct {
 	Name             string       `json:"name"              help:"Package name, menu bar/dock display name."`
 	ID               string       `json:"id"                help:"UTI representing the app."`
+	URLScheme        string       `json:"url-scheme"        help:"The URL scheme that launches the ap.p"`
 	Version          string       `json:"version"           help:"Version of the app (minified form eg 1.42)."`
 	BuildNumber      int          `json:"build-number"      help:"Build number."`
 	Icon             string       `json:"icon"              help:"The app icon as .png file. Provide a big one! Other required icon sizes will be auto generated."`
@@ -95,6 +96,7 @@ func defaultConfig() Config {
 	return Config{
 		Name:             name,
 		ID:               fmt.Sprintf("%v.%v", os.Getenv("USER"), name),
+		URLScheme:        strings.ToLower(name),
 		Version:          "1.0",
 		BuildNumber:      1,
 		DevRegion:        "en",
