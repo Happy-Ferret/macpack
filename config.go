@@ -15,22 +15,23 @@ import (
 
 // Config represents the configuration of the app to be packaged.
 type Config struct {
-	Name             string       `json:"name"              help:"Package name, menu bar/dock display name."`
-	ID               string       `json:"id"                help:"UTI representing the app."`
-	URLScheme        string       `json:"url-scheme"        help:"The URL scheme that launches the ap.p"`
-	Version          string       `json:"version"           help:"Version of the app (minified form eg 1.42)."`
-	BuildNumber      int          `json:"build-number"      help:"Build number."`
-	Icon             string       `json:"icon"              help:"The app icon as .png file. Provide a big one! Other required icon sizes will be auto generated."`
-	DevRegion        string       `json:"dev-region"        help:"Development region."`
-	DeploymentTarget string       `json:"deployment-target" help:"MacOS version."`
-	Copyright        string       `json:"copyright"         help:"Human readable copyright."`
-	Role             string       `json:"role"              help:"Application role: Editor|Viewer|Shell|None."`
-	Category         string       `json:"category"          help:"Applicaton category type.\nSee https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW8."`
-	Sandbox          bool         `json:"sandbox"           help:"Defines if the app will run in sandbox mode."`
-	Capabilities     capabilities `json:"capabilities"      help:"App capabilities. Required by the Mac App Store. Requires sandbox mode."`
-	Store            bool         `json:"store"             help:"Creates a .pkg ready to be uploaded with Application Loader."`
-	SignID           string       `json:"sign-id"           help:"signing id. security find-identity -v -p codesigning (to see available ids)."`
-	SupportedFiles   []string     `json:"supported-files"   help:"List of UTI representing the file types the app can open."`
+	Name               string       `json:"name"              help:"Package name, menu bar/dock display name."`
+	ID                 string       `json:"id"                help:"UTI representing the app."`
+	URLScheme          string       `json:"url-scheme"        help:"The URL scheme that launches the ap.p"`
+	Version            string       `json:"version"           help:"Version of the app (minified form eg 1.42)."`
+	BuildNumber        int          `json:"build-number"      help:"Build number."`
+	Icon               string       `json:"icon"              help:"The app icon as .png file. Provide a big one! Other required icon sizes will be auto generated."`
+	DevRegion          string       `json:"dev-region"        help:"Development region."`
+	DeploymentTarget   string       `json:"deployment-target" help:"MacOS version."`
+	Copyright          string       `json:"copyright"         help:"Human readable copyright."`
+	Role               string       `json:"role"              help:"Application role: Editor|Viewer|Shell|None."`
+	Category           string       `json:"category"          help:"Applicaton category type.\nSee https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW8."`
+	Sandbox            bool         `json:"sandbox"           help:"Defines if the app will run in sandbox mode."`
+	Capabilities       capabilities `json:"capabilities"      help:"App capabilities. Required by the Mac App Store. Requires sandbox mode."`
+	Store              bool         `json:"store"             help:"Creates a .pkg ready to be uploaded with Application Loader."`
+	SignID             string       `json:"sign-id"           help:"signing id. security find-identity -v -p codesigning (to see available ids)."`
+	SupportedFiles     []string     `json:"supported-files"   help:"List of UTI representing the file types the app can open."`
+	IgnoreEntitlements bool         `json:"ignore-entitlements" help:"ignore the entitlements when signing."`
 }
 
 type capabilities struct {
@@ -109,7 +110,8 @@ func defaultConfig() Config {
 				Out: true,
 			},
 		},
-		SupportedFiles: []string{},
+		SupportedFiles:     []string{},
+		IgnoreEntitlements: false,
 	}
 }
 
