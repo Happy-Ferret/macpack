@@ -1,13 +1,15 @@
 package main
 
 func signPackage(cfg Config) error {
-	return execCmd("codesign",
-		"--entitlements",
-		"mac.entitlements",
+	args := []string{
 		"-s",
 		cfg.SignID,
-		cfg.appName(),
-	)
+	}
+	if !cfg.IgnoreEntitlements {
+		args = append(args, "--entitlements", "mac.entitlements")
+	}
+	args = append(args, cfg.appName())
+	return execCmd("codesign", args...)
 }
 
 func signCheck(cfg Config) error {
